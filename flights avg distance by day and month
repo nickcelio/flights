@@ -1,0 +1,48 @@
+
+
+
+
+select dep_day_of_week, avg(total_distance)
+ from
+(select case 
+when dep_day_of_week = 'Monday' then 1
+when dep_day_of_week = 'Tuesday' then 2
+when dep_day_of_week = 'Wednesday' then 3
+when dep_day_of_week = 'Thursday' then 4
+when dep_day_of_week = 'Friday' then 5
+when dep_day_of_week = 'Saturday' then 6
+when dep_day_of_week = 'Sunday' then 7
+ else null
+end as daysnumbered, dep_day_of_week, dep_month, sum(distance) as total_distance
+from flights
+
+group by 2,3
+order by 3,1)
+
+group by daysnumbered
+order by daysnumbered
+
+
+
+
+;
+
+select dep_month, avg(total_distance)
+
+from (select case 
+when dep_day_of_week = 'Monday' then 1
+when dep_day_of_week = 'Tuesday' then 2
+when dep_day_of_week = 'Wednesday' then 3
+when dep_day_of_week = 'Thursday' then 4
+when dep_day_of_week = 'Friday' then 5
+when dep_day_of_week = 'Saturday' then 6
+when dep_day_of_week = 'Sunday' then 7
+ else null
+end as daysnumbered, dep_day_of_week, dep_month, sum(distance) as total_distance
+from flights
+
+group by 2,3
+order by 3,1)
+
+group by dep_month
+order by dep_month;
